@@ -1,0 +1,32 @@
+# Secrets and local configuration
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+*secret*
+
+# Prohibited research payloads
+checkpoints/
+datasets/
+data/
+assets/
+outputs/
+artifacts/
+*.ckpt
+*.pth
+*.pt
+*.onnx
+*.usd
+*.usda
+*.usdc
+*.npy
+*.npz
+*.h5
+*.hdf5
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/
+*~
