@@ -2,6 +2,19 @@
 
 Keep the newest entry first. Update after every substantive task.
 
+## 2026-09-05 — Define the current V0 sparse-planner milestone
+
+- **Date:** 2026-09-05
+- **Task:** Add a binding current-phase document that prevents work from expanding beyond the minimum sparse-planner hypothesis test.
+- **What was done:** Added `CURRENT_PHASE.md`; fixed V0 to one box, vector conditioning, eight timed anchors for root/left foot/right foot, bounded reference-repo work, synthetic data, and two named experiments; updated session rules and current status.
+- **Important findings:** Isaac Lab and downstream motion completion/control are not blockers for the standalone V0. V0 anchors are timed semantic positions/orientation values, not B-spline control points.
+- **Files changed:** `AGENTS.md`, `README.md`, `docs/CURRENT_PHASE.md`, `docs/CURRENT_STATUS.md`, `docs/CODEX_HANDOFF.md`, and `docs/DECISIONS.md`.
+- **Commands/tests run:** Read the required context documents and the complete user-provided current-phase specification; checked Markdown whitespace with `git diff --check`; inspected the final diff and repository status.
+- **Artifacts/results:** Binding V0 scope and completion criteria documented; no model or research experiment was run.
+- **Unresolved problems:** Phase A/B/C reference work, V0 implementation, EXP-001, and the optional multimodal experiment remain outstanding.
+- **Recommended next step:** Perform only Phase A: run and document the smallest FlowMP 3D CFM example, then stop.
+- **Relevant git commit:** `Define V0 sparse planner milestone` (this entry is contained in that commit).
+
 ## 2026-09-05 — Initialize persistent research context
 
 - **Date:** 2026-09-05
