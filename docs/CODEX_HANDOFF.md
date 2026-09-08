@@ -2,6 +2,19 @@
 
 Keep the newest entry first. Update after every substantive task.
 
+## 2026-09-08 — Complete bounded ABPolicy Phase B audit
+
+- **Date:** 2026-09-08
+- **Task:** After the user formally accepted FlowMP as complete, answer only five ABPolicy questions: dense-to-sparse target construction, flow shapes, `n_ctrl=8`, training loss, and receding-horizon continuity/refitting.
+- **What was done:** Audited the pinned source without installing dependencies or running Piper; traced configuration, HDF5 loader, B-spline fitter, CFM training, CondDiT conditioning, Euler sampling, asynchronous delay handling, prefix refit, reconstruction, and execution chunking; verified real local HDF5/action shapes and ran read-only isolated B-spline/refit checks; added one main-workspace audit document.
+- **Important findings:** Training windows contain eight history plus 32 future absolute actions, `[B,40,7]`, compressed by cubic least-squares fitting to `[B,8,7]`. CFM operates directly on these 56 control coefficients with Gaussian `x0`, normalized control-point `x1`, linear `x_t`, target `x1-x0`, and image/qpos conditioning. Inference uses ten Euler steps, rebuilds `[8,7]` to `[40,7]`, refits only the first four coefficients to an `8+delay` executed prefix, discards that prefix, and queues 16 actions. These B-spline coefficients are not Timed Semantic Anchors.
+- **Files changed:** Main workspace `docs/ABPOLICY_PHASE_B_AUDIT.md`; Context Repo `docs/CURRENT_STATUS.md` and `docs/CODEX_HANDOFF.md`. ABPolicy itself was not modified.
+- **Commands/tests run:** Checked revision/worktree; read relevant config/training/model/loader/fitter/inference code; inspected all three local HDF5 files; decoded one real sample; executed `40×7 -> 8×7 -> 40×7`, an in-memory `n_ctrl=6` comparison, and weighted prefix refitting; checked official TorchCFM source for the dependency-owned CFM formula; confirmed the upstream worktree remained clean.
+- **Artifacts/results:** Real sample shapes were qpos `[8,7]`, dense action `[40,7]`, and two images each `[1,3,480,640]`. Eight-control reconstruction RMSE was `0.01101999`; six-control RMSE was `0.01542381` for the same sample. Prefix RMSE decreased from `0.2000954` to `0.0023741`, while coefficients 4–7 remained exactly unchanged. These are code-path checks, not research results, so `EXPERIMENT_LOG.md` was not updated.
+- **Unresolved problems:** The full realtime entrypoint imports two missing utility modules; model forward/checkpoint execution remains unverified by design; padding masks are not used in loss; large-delay bounds are not guarded; least-squares refitting does not prove the README's claimed strict continuity.
+- **Recommended next step:** Perform only the bounded SanD-Planner Phase C audit, then stop reading references and implement the project's small V0.
+- **Relevant git commit:** `Complete bounded ABPolicy audit` (this entry is contained in that commit).
+
 ## 2026-09-07 — Add and verify FlowMP dummy conditioning
 
 - **Date:** 2026-09-07
